@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+        form {
+            width: 700px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            background-color: #ADD8E6;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>not_installed</title>
+</head>
+
+<body>
+<script src="script.js"></script>
+  
+        <label for="soft">Enter the softwares installed in your OS:</label><br>
+        <textarea name="soft" id="soft" rows="10" cols="30"></textarea><br>
+        <input type="submit" value="Submit" onclick="tes()">
+
+        <p>Software Not Installed: </p>
+
+
+        </ul>
+
+
+    </form>
+
+
+</body>
+
+</html>
+
+
+<!-- JavaScript to insert received compared software list into page -->
+<script>
+    fetch('/compare_submit')
+        .then(response => response.text())
+        .then(comparedSoftwareList => {
+            // Split compared software list into array of individual software names
+            const comparedSoftwareArray = comparedSoftwareList.split(' ');
+
+            // Insert each software name into the page as a list item
+            for (const software of comparedSoftwareArray) {
+                const listItem = document.createElement('li');
+                listItem.textContent = software;
+                document.getElementById('compared-software-list').appendChild(listItem);
+            }
+        });
+</script>
